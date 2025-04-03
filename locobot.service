@@ -1,0 +1,22 @@
+[Unit]
+Description=Parcing tickets on loco site v1
+After=network.target
+
+[Service]
+EnvironmentFile=/etc/environment
+ExecStart=/root/dev/bots/locobot/venv/bin/python bot.py
+ExecReload=/root/dev/bots/locobot/venv/bin/python bot.py
+WorkingDirectory=/root/dev/bots/locobot/
+KillMode=process
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=multi-user.target
+
+
+# systemctl enable locobot.service
+# systemctl stop locobot.service
+# systemctl start locobot.service
+# systemctl restart locobot.service
+# sudo nano /lib/systemd/system/locobot.service

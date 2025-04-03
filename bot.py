@@ -80,7 +80,7 @@ async def request_events(dp: Dispatcher):
         for id in ids:
             await bot.send_message(
                 chat_id=id,
-                text='Произошла ошибка ,смотри логи', 
+                text='На странице появился таймер покупки билета или произошла ошибка, смотри логи', 
                 reply_markup=get_main_menu()
             )
 
