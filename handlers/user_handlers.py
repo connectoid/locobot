@@ -52,6 +52,6 @@ async def process_button_1_command(message: Message):
                 )
     else:
          await message.answer(
-                    text='На странице появился таймер покупки билета или произошла ошибка, смотри логи', 
+                    text='На странице появился таймер покупки билета или отсутсвуют мероприятия, смотри логи', 
                     reply_markup=get_main_menu()
                 )
