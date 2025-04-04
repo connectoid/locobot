@@ -76,13 +76,13 @@ async def request_events(dp: Dispatcher):
                     )
         else:
             print('No changes')
-    else:
-        for id in ids:
-            await bot.send_message(
-                chat_id=id,
-                text='На странице появился таймер покупки билета или произошла ошибка, смотри логи', 
-                reply_markup=get_main_menu()
-            )
+    # else:
+    #     for id in ids:
+    #         await bot.send_message(
+    #             chat_id=id,
+    #             text='На странице появился таймер покупки билета или произошла ошибка, смотри логи', 
+    #             reply_markup=get_main_menu()
+    #         )
 
 
 async def schedule_jobs():
