@@ -55,7 +55,7 @@ async def main():
 
 async def request_events(dp: Dispatcher):
     ids = read_ids_from_file()
-    print('Запрашиваем события через планировщик')
+    # print('Запрашиваем события через планировщик')
     events = get_events()
     if events:
         if compare_and_update_dict(events):
@@ -74,8 +74,8 @@ async def request_events(dp: Dispatcher):
                         text='Exception in scheduler', 
                         reply_markup=get_main_menu()
                     )
-        else:
-            print('No changes')
+        # else:
+        #     print('No changes')
     # else:
     #     for id in ids:
     #         await bot.send_message(

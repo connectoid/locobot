@@ -33,7 +33,12 @@ async def process_button_1_command(message: Message):
     print('Check pressed')
     events = get_events()
     if events:
-        if compare_and_update_dict(events):
+        if events[0] == 0:
+             await message.answer(
+                    text='Отсутсвуют мероприятия', 
+                    reply_markup=get_main_menu()
+             )
+        elif compare_and_update_dict(events):
             message_text = create_message_text(events)
             if message_text:
                 await message.answer(
@@ -52,6 +57,6 @@ async def process_button_1_command(message: Message):
                 )
     else:
          await message.answer(
-                    text='На странице появился таймер покупки билета или отсутсвуют мероприятия, смотри логи', 
+                    text='На странице появился таймер покупки билета или произошла ошибка, проверь сайт и смотри логи', 
                     reply_markup=get_main_menu()
                 )
