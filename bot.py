@@ -13,12 +13,12 @@ from utils.tools import compare_and_update_dict, create_message_text, read_ids_f
 from keyboards.main_menu import get_main_menu
 
 
-REQUEST_INTERVAL = 60
+REQUEST_INTERVAL = 10
 
 logger = logging.getLogger(__name__)
 storage = MemoryStorage()
 
-scheduler = AsyncIOScheduler()
+scheduler = AsyncIOScheduler() 
 
 config = load_config('.env')
 
@@ -26,6 +26,8 @@ BOT_TOKEN = config.tg_bot.token
 
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
+
+queue_message_sent = False
 
 async def main():
     logging.basicConfig(
@@ -54,7 +56,9 @@ async def main():
 
 
 async def request_events(dp: Dispatcher):
+    global queue_message_sent
     ids = read_ids_from_file()
+    # ids = [101676827, ]
     # print('Запрашиваем события через планировщик')
     events = get_events()
     if events:
@@ -67,6 +71,7 @@ async def request_events(dp: Dispatcher):
                         text=message_text, 
                         reply_markup=get_main_menu()
                     )
+                queue_message_sent = False
             else:
                 for id in ids:
                     await bot.send_message(
@@ -76,13 +81,15 @@ async def request_events(dp: Dispatcher):
                     )
         # else:
         #     print('No changes')
-    # else:
-    #     for id in ids:
-    #         await bot.send_message(
-    #             chat_id=id,
-    #             text='На странице появился таймер покупки билета или произошла ошибка, смотри логи', 
-    #             reply_markup=get_main_menu()
-    #         )
+    else:
+        if not queue_message_sent:
+            for id in ids:
+                await bot.send_message(
+                    chat_id=id,
+                    text='На странице появился таймер покупки билета', 
+                    reply_markup=get_main_menu()
+                )
+            queue_message_sent = True
 
 
 async def schedule_jobs():

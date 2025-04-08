@@ -1,11 +1,11 @@
 import requests
+from requests.exceptions import JSONDecodeError
 
 
 from .cookies import cookies, headers, data
 
 
 base_url = 'https://tickets.hclokomotiv.ru/poster'
-
 
 def get_events():
     response = requests.post(base_url, cookies=cookies, headers=headers, data=data)

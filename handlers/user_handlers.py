@@ -14,7 +14,7 @@ config: Config = load_config()
 
 
 @router.message(~F.text)
-async def content_type_example(msg: Message):
+async def content_type_example(msg: Message): 
     await msg.answer('👍')
 
 
